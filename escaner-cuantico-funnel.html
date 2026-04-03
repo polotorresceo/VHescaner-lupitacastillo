@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Escáner Cuántico a Domicilio | Lupita Castillo</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-dark: #8B6914;
+    --cream: #FAF6EE;
+    --deep: #0E0A04;
+    --burgundy: #5C1A2E;
+    --sage: #3D5A47;
+    --warm-white: #FFFDF8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--deep);
+    color: var(--cream);
+    overflow-x: hidden;
+  }
+
+  /* ──── HERO ──── */
+  .hero {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: radial-gradient(ellipse at 60% 40%, #1a0e00 0%, #0E0A04 70%);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 800px 600px at 70% 50%, rgba(201,168,76,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 400px 800px at 20% 80%, rgba(92,26,46,0.2) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    gap: 4rem;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-text { animation: fadeUp 1s ease both; }
+
+  .hero-eyebrow {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.35em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .hero-eyebrow::before, .hero-eyebrow::after {
+    content: '';
+    height: 1px;
+    width: 30px;
+    background: var(--gold);
+    opacity: 0.6;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    color: var(--warm-white);
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .hero-sub {
+    font-size: 0.95rem;
+    line-height: 1.9;
+    color: rgba(250,246,238,0.7);
+    margin-bottom: 2rem;
+    font-weight: 300;
+  }
+
+  .hero-badges {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+  }
+  .badge {
+    padding: 0.4rem 1rem;
+    border: 1px solid rgba(201,168,76,0.4);
+    border-radius: 100px;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    color: var(--gold-light);
+    text-transform: uppercase;
+    background: rgba(201,168,76,0.06);
+  }
+
+  .cta-primary {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
+    background-size: 200% 200%;
+    color: var(--deep);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 1.1rem 2.4rem;
+    border-radius: 2px;
+    text-decoration: none;
+    animation: shimmer 3s ease infinite;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .cta-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(201,168,76,0.4);
+  }
+
+  @keyframes shimmer {
+    0%,100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  /* ──── IMAGEN LUPITA ──── */
+  .hero-image-wrap {
+    position: relative;
+    animation: fadeUp 1.2s ease 0.3s both;
+    display: flex;
+    justify-content: center;
+  }
+
+  .image-frame {
+    position: relative;
+    width: 360px;
+    max-width: 100%;
+  }
+
+  .image-frame::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 4px;
+    background: linear-gradient(145deg, var(--gold), transparent 50%, var(--gold-dark));
+    z-index: 0;
+  }
+
+  .image-frame img {
+    width: 100%;
+    border-radius: 3px;
+    display: block;
+    position: relative;
+    z-index: 1;
+    filter: brightness(0.95) contrast(1.05) saturate(1.1);
+  }
+
+  .image-corner {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-color: var(--gold-light);
+    border-style: solid;
+    z-index: 3;
+  }
+  .image-corner.tl { top: -8px; left: -8px; border-width: 2px 0 0 2px; }
+  .image-corner.tr { top: -8px; right: -8px; border-width: 2px 2px 0 0; }
+  .image-corner.bl { bottom: -8px; left: -8px; border-width: 0 0 2px 2px; }
+  .image-corner.br { bottom: -8px; right: -8px; border-width: 0 2px 2px 0; }
+
+  .image-label {
+    position: absolute;
+    bottom: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    color: var(--deep);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.45rem 1.4rem;
+    border-radius: 2px 2px 0 0;
+    white-space: nowrap;
+    z-index: 4;
+  }
+
+  /* ──── DOLOR ──── */
+  .section { padding: 6rem 2rem; position: relative; }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    text-align: center;
+    margin-bottom: 0.8rem;
+    color: var(--warm-white);
+  }
+  .section-title em { color: var(--gold-light); font-style: italic; }
+
+  .section-sub {
+    text-align: center;
+    color: rgba(250,246,238,0.55);
+    font-size: 0.9rem;
+    margin-bottom: 3.5rem;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+  }
+
+  .divider {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 1rem auto 2.5rem;
+  }
+
+  /* Pain points */
+  .pain-section {
+    background: linear-gradient(180deg, #0E0A04 0%, #1a0c10 50%, #0E0A04 100%);
+  }
+
+  .pain-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .pain-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 4px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .pain-card:hover {
+    border-color: rgba(201,168,76,0.4);
+    background: rgba(201,168,76,0.05);
+  }
+  .pain-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .pain-card:hover::before { opacity: 1; }
+
+  .pain-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .pain-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    color: rgba(201,168,76,0.15);
+    position: absolute;
+    top: 1rem; right: 1.2rem;
+    font-weight: 300;
+    line-height: 1;
+  }
+  .pain-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--gold-light);
+    margin-bottom: 0.5rem;
+  }
+  .pain-desc {
+    font-size: 0.85rem;
+    line-height: 1.8;
+    color: rgba(250,246,238,0.6);
+    font-weight: 300;
+  }
+  .pain-solution {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(201,168,76,0.15);
+    font-size: 0.8rem;
+    color: var(--gold);
+    font-weight: 500;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  .pain-solution::before { content: '✦'; font-size: 0.7rem; margin-top: 0.15rem; flex-shrink: 0; }
+
+  /* ──── PROMO ──── */
+  .promo-section {
+    background: linear-gradient(135deg, #0a0600 0%, #1c1000 50%, #0a0600 100%);
+    position: relative;
+  }
+  .promo-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 900px 400px at 50% 50%, rgba(201,168,76,0.08) 0%, transparent 70%);
+  }
+
+  .promo-box {
+    max-width: 780px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  .promo-badge-top {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .promo-badge-top span {
+    display: inline-block;
+    background: var(--burgundy);
+    color: #ffb3c6;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.5rem 1.5rem;
+    border-radius: 100px;
+    animation: pulse 2.5s ease infinite;
+  }
+  @keyframes pulse {
+    0%,100% { box-shadow: 0 0 0 0 rgba(92,26,46,0.6); }
+    50% { box-shadow: 0 0 0 12px rgba(92,26,46,0); }
+  }
+
+  .promo-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    text-align: center;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+    color: var(--warm-white);
+  }
+  .promo-title strong { color: var(--gold-light); }
+
+  .price-display {
+    text-align: center;
+    margin: 2.5rem 0;
+  }
+  .price-old {
+    font-size: 1.1rem;
+    color: rgba(250,246,238,0.35);
+    text-decoration: line-through;
+    margin-bottom: 0.3rem;
+    font-weight: 300;
+  }
+  .price-new {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 8vw, 5rem);
+    font-weight: 300;
+    color: var(--gold-light);
+    line-height: 1;
+  }
+  .price-new sup { font-size: 1.8rem; vertical-align: top; margin-top: 0.8rem; }
+  .price-tag {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+    font-weight: 500;
+  }
+
+  .promo-includes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+    margin: 2rem 0 2.5rem;
+  }
+  .promo-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    font-size: 0.85rem;
+    color: rgba(250,246,238,0.75);
+    font-weight: 300;
+  }
+  .promo-item-icon {
+    color: var(--gold);
+    font-size: 0.9rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .urgency {
+    text-align: center;
+    font-size: 0.8rem;
+    color: rgba(250,246,238,0.45);
+    letter-spacing: 0.08em;
+    margin-bottom: 2rem;
+  }
+  .urgency span { color: #ff8fa3; font-weight: 500; }
+
+  /* ──── CTA ──── */
+  .cta-section {
+    background: linear-gradient(180deg, #0E0A04 0%, #1a0e06 100%);
+    text-align: center;
+  }
+
+  .cta-box {
+    max-width: 620px;
+    margin: 0 auto;
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 6px;
+    padding: 3.5rem 2.5rem;
+    background: rgba(201,168,76,0.04);
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
+  }
+
+  .cta-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    margin-bottom: 0.5rem;
+    color: var(--warm-white);
+  }
+  .cta-name em { color: var(--gold-light); font-style: italic; }
+
+  .cta-desc {
+    font-size: 0.9rem;
+    color: rgba(250,246,238,0.55);
+    line-height: 1.8;
+    font-weight: 300;
+    margin-bottom: 2rem;
+  }
+
+  .cta-phone-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light), var(--gold));
+    background-size: 300% 300%;
+    animation: shimmer 3s ease infinite;
+    color: var(--deep);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1rem, 3vw, 1.3rem);
+    letter-spacing: 0.05em;
+    padding: 1.2rem 2.5rem;
+    border-radius: 3px;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-bottom: 1.2rem;
+  }
+  .cta-phone-btn:hover {
+    transform: scale(1.04);
+    box-shadow: 0 16px 50px rgba(201,168,76,0.45);
+  }
+  .cta-phone-btn svg { width: 22px; height: 22px; flex-shrink: 0; }
+
+  .cta-meta {
+    font-size: 0.78rem;
+    color: rgba(250,246,238,0.4);
+    letter-spacing: 0.08em;
+    line-height: 1.9;
+  }
+  .cta-meta strong { color: rgba(250,246,238,0.65); }
+
+  /* ──── SCANNER INFO ──── */
+  .scanner-section {
+    background: linear-gradient(180deg, #0a0804 0%, #120e06 100%);
+  }
+
+  .scanner-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    max-width: 960px;
+    margin: 0 auto;
+    align-items: center;
+  }
+
+  .scanner-img-wrap {
+    position: relative;
+  }
+  .scanner-img-wrap img {
+    width: 100%;
+    border-radius: 4px;
+    filter: brightness(0.9) contrast(1.1) saturate(0.85) sepia(0.15);
+  }
+  .scanner-img-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(201,168,76,0.12) 0%, transparent 60%);
+    border-radius: 4px;
+    pointer-events: none;
+  }
+
+  .scanner-points { list-style: none; }
+  .scanner-points li {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    align-items: flex-start;
+  }
+  .scanner-points .dot {
+    width: 6px;
+    height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 0.5rem;
+  }
+  .scanner-points .pt-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--gold-light);
+    margin-bottom: 0.2rem;
+  }
+  .scanner-points .pt-desc {
+    font-size: 0.82rem;
+    color: rgba(250,246,238,0.55);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* ──── FOOTER ──── */
+  footer {
+    text-align: center;
+    padding: 2.5rem 2rem;
+    border-top: 1px solid rgba(201,168,76,0.1);
+    font-size: 0.75rem;
+    color: rgba(250,246,238,0.3);
+    letter-spacing: 0.1em;
+    line-height: 2;
+  }
+  footer a {
+    color: var(--gold);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+  footer a:hover { opacity: 1; }
+
+  /* ──── ANIMATIONS ──── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ──── RESPONSIVE ──── */
+  @media (max-width: 720px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 2.5rem; text-align: center; }
+    .hero-eyebrow { justify-content: center; }
+    .hero-badges { justify-content: center; }
+    .image-frame { width: 280px; }
+    .scanner-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .promo-includes { grid-template-columns: 1fr; }
+    .cta-box { padding: 2.5rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════ HERO ══════════════ -->
+<section class="hero">
+  <div class="hero-grid">
+    <div class="hero-text">
+      <div class="hero-eyebrow">Tecnología de Bienestar</div>
+      <h1 class="hero-title">
+        Descubre lo que<br>tu cuerpo <em>quiere decirte</em>
+      </h1>
+      <p class="hero-sub">
+        El Escáner Cuántico es la tecnología de vanguardia que analiza en minutos los desequilibrios energéticos, emocionales y físicos que tu cuerpo acumula en silencio — directamente en la comodidad de tu hogar.
+      </p>
+      <div class="hero-badges">
+        <span class="badge">Sin dolor</span>
+        <span class="badge">No invasivo</span>
+        <span class="badge">Resultados inmediatos</span>
+        <span class="badge">Servicio a domicilio</span>
+      </div>
+      <a class="cta-primary" href="tel:+13605594341">
+        Reservar mi sesión express ↓
+      </a>
+    </div>
+    <div class="hero-image-wrap">
+      <div class="image-frame">
+        <div class="image-corner tl"></div>
+        <div class="image-corner tr"></div>
+        <div class="image-corner bl"></div>
+        <div class="image-corner br"></div>
+        <img src="https://i.ibb.co/0jB7qQBk/VH-ESCABER-LINDA.jpg" alt="Lupita Castillo - Especialista en Escáner Cuántico">
+        <div class="image-label">Lupita Castillo · Especialista</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ ESCÁNER INFO ══════════════ -->
+<section class="section scanner-section">
+  <div class="scanner-grid">
+    <div class="scanner-img-wrap reveal">
+      <img src="https://i.ibb.co/nNL67s6g/Whats-App-Image-2026-04-02-at-18-35-29.jpg" alt="Equipo de Escáner Cuántico">
+    </div>
+    <div class="reveal" style="transition-delay:0.2s">
+      <div class="hero-eyebrow" style="justify-content:flex-start">¿Qué es el escáner cuántico?</div>
+      <h2 class="section-title" style="text-align:left;font-size:clamp(1.5rem,3vw,2rem);margin-bottom:1rem">
+        Ciencia cuántica al<br><em>servicio de tu salud</em>
+      </h2>
+      <div class="divider" style="margin:0.8rem 0 1.5rem"></div>
+      <ul class="scanner-points">
+        <li>
+          <span class="dot"></span>
+          <div>
+            <div class="pt-title">Análisis de 500+ parámetros</div>
+            <div class="pt-desc">Evalúa en tiempo real el estado de tus órganos, sistema nervioso, niveles hormonales y energía vital.</div>
+          </div>
+        </li>
+        <li>
+          <span class="dot"></span>
+          <div>
+            <div class="pt-title">Tecnología de resonancia</div>
+            <div class="pt-desc">Utiliza frecuencias cuánticas para detectar desequilibrios antes de que se conviertan en síntomas.</div>
+          </div>
+        </li>
+        <li>
+          <span class="dot"></span>
+          <div>
+            <div class="pt-title">Reporte personalizado</div>
+            <div class="pt-desc">Recibes un reporte detallado con recomendaciones específicas para tu bienestar integral.</div>
+          </div>
+        </li>
+        <li>
+          <span class="dot"></span>
+          <div>
+            <div class="pt-title">Sesión de 45 minutos</div>
+            <div class="pt-desc">Una sesión completa en tu hogar, sin desplazamientos ni salas de espera. Solo tú y tu bienestar.</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ PUNTOS DE DOLOR ══════════════ -->
+<section class="section pain-section">
+  <div style="max-width:1050px;margin:0 auto">
+    <div class="reveal">
+      <div class="hero-eyebrow" style="justify-content:center">¿Te identificas?</div>
+      <h2 class="section-title">
+        Lo que <em>ninguna consulta</em><br>ha podido resolver
+      </h2>
+      <div class="divider"></div>
+      <p class="section-sub">
+        5 señales que tu cuerpo te envía y que el escáner cuántico puede detectar · Para mujeres de 30 a 50 años
+      </p>
+    </div>
+    <div class="pain-grid">
+
+      <div class="pain-card reveal">
+        <span class="pain-number">01</span>
+        <span class="pain-icon">😴</span>
+        <div class="pain-title">Fatiga que no cede con el descanso</div>
+        <div class="pain-desc">
+          Duermes pero amaneces agotada. El cansancio es constante, como cargar un peso invisible que nadie más puede ver.
+        </div>
+        <div class="pain-solution">
+          El escáner detecta deficiencias energéticas, desajustes en glándulas suprarrenales y bloqueos que drenan tu vitalidad.
+        </div>
+      </div>
+
+      <div class="pain-card reveal" style="transition-delay:0.1s">
+        <span class="pain-number">02</span>
+        <span class="pain-icon">⚡</span>
+        <div class="pain-title">Ansiedad sin causa aparente</div>
+        <div class="pain-desc">
+          Esa sensación de angustia que aparece de la nada. El corazón se acelera, la mente no para y nadie entiende por qué.
+        </div>
+        <div class="pain-solution">
+          Identifica desequilibrios en el sistema nervioso y patrones emocionales acumulados que generan tensión crónica.
+        </div>
+      </div>
+
+      <div class="pain-card reveal" style="transition-delay:0.2s">
+        <span class="pain-number">03</span>
+        <span class="pain-icon">⚖️</span>
+        <div class="pain-title">Peso que no se mueve a pesar de todo</div>
+        <div class="pain-desc">
+          Haces dieta, te esfuerzas, y nada cambia. El cuerpo parece resistirse sin importar lo que intentes.
+        </div>
+        <div class="pain-solution">
+          Revela el estado real de tu metabolismo, tiroides, sistema linfático y factores hormonales que frenan tu progreso.
+        </div>
+      </div>
+
+      <div class="pain-card reveal" style="transition-delay:0.1s">
+        <span class="pain-number">04</span>
+        <span class="pain-icon">🌪️</span>
+        <div class="pain-title">Cambios de humor inexplicables</div>
+        <div class="pain-desc">
+          Un momento estás bien, al siguiente todo se derrumba. Llanto sin motivo, irritabilidad, sensación de que algo no está bien.
+        </div>
+        <div class="pain-solution">
+          Detecta desequilibrios hormonales, fluctuaciones en neurotransmisores y la raíz emocional de tus cambios de ánimo.
+        </div>
+      </div>
+
+      <div class="pain-card reveal" style="transition-delay:0.2s">
+        <span class="pain-number">05</span>
+        <span class="pain-icon">🌿</span>
+        <div class="pain-title">Dolores físicos sin diagnóstico claro</div>
+        <div class="pain-desc">
+          Molestias que migran de un lugar a otro. Los estudios dicen que "todo está bien", pero tú sabes que no es así.
+        </div>
+        <div class="pain-solution">
+          Mapea la salud de tus órganos y detecta inflamación silenciosa, toxinas y bloqueos que los estudios convencionales no ven.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ SÚPER PROMOCIÓN ══════════════ -->
+<section class="section promo-section">
+  <div class="promo-box">
+    <div class="promo-badge-top reveal">
+      <span>✦ &nbsp; Oferta por tiempo limitado &nbsp; ✦</span>
+    </div>
+    <h2 class="promo-title reveal" style="transition-delay:0.1s">
+      Sesión Express Completa<br><strong>a domicilio</strong>
+    </h2>
+    <div class="divider reveal" style="transition-delay:0.15s"></div>
+
+    <div class="price-display reveal" style="transition-delay:0.2s">
+      <div class="price-old">Precio regular: $1,800 MXN</div>
+      <div class="price-new"><sup>$</sup>990</div>
+      <div class="price-tag">mxn · pago único · servicio a domicilio</div>
+    </div>
+
+    <div class="promo-includes reveal" style="transition-delay:0.25s">
+      <div class="promo-item">
+        <span class="promo-item-icon">✦</span>
+        <span>Análisis cuántico completo de 500+ parámetros</span>
+      </div>
+      <div class="promo-item">
+        <span class="promo-item-icon">✦</span>
+        <span>Sesión de 45 minutos en tu hogar</span>
+      </div>
+      <div class="promo-item">
+        <span class="promo-item-icon">✦</span>
+        <span>Reporte personalizado impreso</span>
+      </div>
+      <div class="promo-item">
+        <span class="promo-item-icon">✦</span>
+        <span>Consulta de interpretación incluida</span>
+      </div>
+      <div class="promo-item">
+        <span class="promo-item-icon">✦</span>
+        <span>Plan de bienestar recomendado</span>
+      </div>
+      <div class="promo-item">
+        <span class="promo-item-icon">✦</span>
+        <span>Seguimiento por WhatsApp 7 días</span>
+      </div>
+    </div>
+
+    <div class="urgency reveal" style="transition-delay:0.3s">
+      ⚡ Solo <span>10 lugares disponibles</span> esta semana · Agenda hoy
+    </div>
+
+    <div style="text-align:center" class="reveal" style="transition-delay:0.35s">
+      <a class="cta-primary" href="tel:+13605594341" style="font-size:0.9rem;padding:1.2rem 2.8rem">
+        Quiero mi sesión a domicilio →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ CTA FINAL ══════════════ -->
+<section class="section cta-section">
+  <div class="cta-box reveal">
+    <h2 class="cta-name">
+      Contrata con <em>Lupita Castillo</em>
+    </h2>
+    <p class="cta-desc">
+      Especialista certificada en bienestar cuántico · Servicio express a domicilio · Disponible para ti hoy mismo
+    </p>
+
+    <a class="cta-phone-btn" href="tel:+13605594341">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+      </svg>
+      136 055 9 4341
+    </a>
+
+    <div class="cta-meta">
+      <strong>Lupita Castillo</strong> · Especialista en Escáner Cuántico<br>
+      Servicio Express a Domicilio · Contratación directa por llamada<br>
+      Lunes a Sábado · 9:00 am – 7:00 pm
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer>
+  <div style="color:rgba(250,246,238,0.2);font-size:1.2rem;margin-bottom:0.5rem;letter-spacing:0.3em">✦ · ✦</div>
+  Diseñado con IA por
+  <a href="mailto:movytec@gmail.com">movytec@gmail.com</a><br>
+  <span style="font-size:0.68rem;opacity:0.5">© 2026 · Todos los derechos reservados</span>
+</footer>
+
+<!-- ══════════════ SCRIPT ══════════════ -->
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
