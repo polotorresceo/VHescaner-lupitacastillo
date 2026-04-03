@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quantum Body Scan · Vancouver, CA | Lupita Castillo</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-dark: #8B6914;
+    --cream: #FAF6EE;
+    --deep: #060810;
+    --deep2: #090d1a;
+    --blue: #1a3a6e;
+    --blue-glow: #2a6ef5;
+    --cyan: #00d4ff;
+    --warm-white: #FFFDF8;
+    --burgundy: #5C1A2E;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--deep);
+    color: var(--cream);
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 5rem 2.5rem 4rem;
+    gap: 3rem;
+  }
+
+  .hero-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(ellipse 900px 700px at 80% 30%, rgba(42,110,245,0.08) 0%, transparent 65%),
+      radial-gradient(ellipse 600px 600px at 10% 80%, rgba(201,168,76,0.06) 0%, transparent 60%),
+      linear-gradient(160deg, #060810 0%, #070b14 60%, #08060e 100%);
+  }
+
+  /* star particles */
+  .stars {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .star {
+    position: absolute;
+    border-radius: 50%;
+    background: white;
+    animation: twinkle var(--d, 4s) ease-in-out infinite var(--delay, 0s);
+  }
+  @keyframes twinkle {
+    0%,100%{opacity:var(--lo,0.1)} 50%{opacity:var(--hi,0.6)}
+  }
+
+  .hero-text { position: relative; z-index: 2; }
+
+  .location-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid rgba(0,212,255,0.35);
+    background: rgba(0,212,255,0.06);
+    color: var(--cyan);
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    padding: 0.45rem 1.1rem;
+    border-radius: 100px;
+    margin-bottom: 1.5rem;
+  }
+  .location-pill::before { content:'📍'; font-size:0.8rem; }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+    line-height: 1.1;
+    margin-bottom: 1.4rem;
+    color: var(--warm-white);
+  }
+  .hero-title em { font-style: italic; color: var(--gold-light); display: block; }
+
+  .hero-sub {
+    font-size: 0.9rem;
+    line-height: 1.9;
+    color: rgba(250,246,238,0.65);
+    margin-bottom: 2rem;
+    font-weight: 300;
+    max-width: 480px;
+  }
+
+  .hero-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 2.5rem;
+  }
+  .hpill {
+    padding: 0.35rem 0.9rem;
+    border: 1px solid rgba(201,168,76,0.3);
+    background: rgba(201,168,76,0.05);
+    border-radius: 100px;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    color: var(--gold-light);
+    text-transform: uppercase;
+  }
+
+  .btn-gold {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light), var(--gold));
+    background-size: 300% 300%;
+    animation: shim 3s ease infinite;
+    color: #0a0800;
+    font-weight: 700;
+    font-size: 0.82rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 1.1rem 2.4rem;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .btn-gold:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 50px rgba(201,168,76,0.45);
+  }
+  @keyframes shim {
+    0%,100%{background-position:0% 50%} 50%{background-position:100% 50%}
+  }
+
+  /* hero image */
+  .hero-img-col {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+  }
+  .hero-img-wrap {
+    position: relative;
+    width: 420px;
+    max-width: 100%;
+  }
+  .hero-img-wrap img {
+    width: 100%;
+    border-radius: 6px;
+    display: block;
+    filter: brightness(1.05) contrast(1.1) saturate(1.15);
+  }
+  .hero-img-glow {
+    position: absolute;
+    inset: -30px;
+    border-radius: 12px;
+    background: radial-gradient(ellipse at 50% 50%, rgba(42,110,245,0.25) 0%, transparent 70%);
+    z-index: -1;
+    animation: glowPulse 4s ease-in-out infinite;
+  }
+  @keyframes glowPulse {
+    0%,100%{opacity:0.6; transform:scale(1)} 50%{opacity:1; transform:scale(1.04)}
+  }
+  .hero-img-border {
+    position: absolute;
+    inset: -1px;
+    border-radius: 7px;
+    background: linear-gradient(145deg, rgba(0,212,255,0.5), transparent 40%, rgba(201,168,76,0.4));
+    z-index: -1;
+  }
+
+  /* scan line animation */
+  .scan-line {
+    position: absolute;
+    left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(0,212,255,0.8), transparent);
+    animation: scanMove 3s linear infinite;
+    border-radius: 2px;
+    z-index: 3;
+    pointer-events: none;
+  }
+  @keyframes scanMove {
+    0%{top:0%; opacity:0} 5%{opacity:1} 95%{opacity:1} 100%{top:100%; opacity:0}
+  }
+
+  /* ── DIVIDER ── */
+  .gold-divider {
+    width: 60px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 1rem auto 2.5rem;
+  }
+  .cyan-divider {
+    width: 60px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+    margin: 1rem auto 2.5rem;
+  }
+
+  /* ── SECTIONS ── */
+  .sec { padding: 6rem 2rem; position: relative; }
+
+  .sec-inner { max-width: 1060px; margin: 0 auto; }
+
+  .eyebrow {
+    font-size: 0.68rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .sec-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    text-align: center;
+    color: var(--warm-white);
+    line-height: 1.2;
+    margin-bottom: 0.6rem;
+  }
+  .sec-title em { color: var(--gold-light); font-style: italic; }
+
+  .sec-sub {
+    text-align: center;
+    font-size: 0.88rem;
+    color: rgba(250,246,238,0.5);
+    font-weight: 300;
+    max-width: 580px;
+    margin: 0 auto 3.5rem;
+    line-height: 1.8;
+  }
+
+  /* ── PAIN CARDS ── */
+  .pain-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 1.4rem;
+  }
+
+  .pain-card {
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(0,212,255,0.1);
+    border-radius: 6px;
+    padding: 2rem 1.8rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color .3s, background .3s, transform .3s;
+  }
+  .pain-card:hover {
+    border-color: rgba(0,212,255,0.35);
+    background: rgba(0,212,255,0.04);
+    transform: translateY(-4px);
+  }
+  .pain-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+    opacity: 0;
+    transition: opacity .3s;
+  }
+  .pain-card:hover::after { opacity: 1; }
+
+  .pain-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    color: rgba(0,212,255,0.08);
+    position: absolute;
+    top: 0.8rem; right: 1rem;
+    line-height: 1;
+    font-weight: 300;
+  }
+  .pain-icon { font-size: 1.8rem; margin-bottom: 0.8rem; display: block; }
+  .pain-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    color: var(--gold-light);
+    margin-bottom: 0.5rem;
+  }
+  .pain-desc {
+    font-size: 0.83rem;
+    color: rgba(250,246,238,0.55);
+    line-height: 1.8;
+    font-weight: 300;
+    margin-bottom: 1rem;
+  }
+  .pain-sol {
+    border-top: 1px solid rgba(0,212,255,0.12);
+    padding-top: 0.9rem;
+    font-size: 0.78rem;
+    color: var(--cyan);
+    line-height: 1.7;
+    font-weight: 400;
+  }
+  .pain-sol::before { content: '◆ '; font-size: 0.6rem; }
+
+  /* ── PROMO ── */
+  .promo-sec {
+    background: linear-gradient(160deg, #07091a 0%, #0a0610 100%);
+    position: relative;
+  }
+  .promo-sec::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 1000px 400px at 50% 50%, rgba(42,110,245,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .promo-box {
+    max-width: 800px;
+    margin: 0 auto;
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 8px;
+    padding: 3.5rem 3rem;
+    background: rgba(201,168,76,0.03);
+    position: relative;
+    overflow: hidden;
+  }
+  .promo-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
+  }
+
+  .limited-badge {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .limited-badge span {
+    display: inline-block;
+    background: rgba(92,26,46,0.6);
+    border: 1px solid rgba(255,107,140,0.3);
+    color: #ffb3c6;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.5rem 1.5rem;
+    border-radius: 100px;
+    animation: badgePulse 2.5s ease infinite;
+  }
+  @keyframes badgePulse {
+    0%,100%{box-shadow:0 0 0 0 rgba(92,26,46,0.5)}
+    50%{box-shadow:0 0 0 10px rgba(92,26,46,0)}
+  }
+
+  .promo-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    text-align: center;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+    color: var(--warm-white);
+  }
+  .promo-title strong { color: var(--gold-light); }
+
+  .price-wrap {
+    text-align: center;
+    margin: 2.5rem 0;
+  }
+  .price-old {
+    font-size: 1rem;
+    color: rgba(250,246,238,0.3);
+    text-decoration: line-through;
+    margin-bottom: 0.3rem;
+    font-weight: 300;
+  }
+  .price-big {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 9vw, 6rem);
+    font-weight: 300;
+    color: var(--gold-light);
+    line-height: 1;
+  }
+  .price-big sup { font-size: 2rem; vertical-align: top; margin-top: 1rem; }
+  .price-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-top: 0.4rem;
+  }
+
+  .promo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+    margin: 2rem 0 2.5rem;
+  }
+  .pi {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.83rem;
+    color: rgba(250,246,238,0.7);
+    font-weight: 300;
+    line-height: 1.6;
+  }
+  .pi-dot { color: var(--gold); flex-shrink: 0; margin-top: 0.2rem; }
+
+  .urgency-line {
+    text-align: center;
+    font-size: 0.78rem;
+    color: rgba(250,246,238,0.4);
+    letter-spacing: 0.08em;
+    margin-bottom: 2.2rem;
+  }
+  .urgency-line b { color: #ff8fa3; }
+
+  /* ── CTA ── */
+  .cta-sec {
+    background: linear-gradient(180deg, #07091a 0%, #060810 100%);
+  }
+
+  .cta-box {
+    max-width: 640px;
+    margin: 0 auto;
+    text-align: center;
+    border: 1px solid rgba(0,212,255,0.2);
+    border-radius: 8px;
+    padding: 4rem 2.5rem;
+    background: rgba(0,212,255,0.025);
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  }
+
+  .cta-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    margin-bottom: 0.5rem;
+    color: var(--warm-white);
+  }
+  .cta-title em { color: var(--gold-light); font-style: italic; }
+
+  .cta-location {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: var(--cyan);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .cta-desc {
+    font-size: 0.88rem;
+    color: rgba(250,246,238,0.5);
+    line-height: 1.9;
+    font-weight: 300;
+    margin-bottom: 2.2rem;
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .phone-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light), var(--gold));
+    background-size: 300% 300%;
+    animation: shim 3s ease infinite;
+    color: #08060a;
+    font-weight: 700;
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    letter-spacing: 0.06em;
+    padding: 1.2rem 2.6rem;
+    border-radius: 3px;
+    text-decoration: none;
+    transition: transform .2s, box-shadow .2s;
+    margin-bottom: 1.5rem;
+  }
+  .phone-btn:hover {
+    transform: scale(1.04);
+    box-shadow: 0 18px 55px rgba(201,168,76,0.5);
+  }
+  .phone-btn svg { width:22px; height:22px; flex-shrink:0; }
+
+  .cta-meta {
+    font-size: 0.76rem;
+    color: rgba(250,246,238,0.35);
+    line-height: 2;
+    letter-spacing: 0.06em;
+  }
+  .cta-meta strong { color: rgba(250,246,238,0.6); }
+
+  /* ── LUPITA strip ── */
+  .lupita-strip {
+    background: linear-gradient(90deg, transparent, rgba(201,168,76,0.06), transparent);
+    border-top: 1px solid rgba(201,168,76,0.12);
+    border-bottom: 1px solid rgba(201,168,76,0.12);
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+
+  .lupita-img {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    border: 2px solid rgba(201,168,76,0.5);
+    margin-bottom: 1.2rem;
+    filter: brightness(0.95) contrast(1.05) saturate(1.1);
+    box-shadow: 0 0 40px rgba(201,168,76,0.2);
+  }
+
+  .lupita-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--gold-light);
+    margin-bottom: 0.3rem;
+  }
+  .lupita-role {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: rgba(250,246,238,0.45);
+    text-transform: uppercase;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 2.5rem 2rem;
+    border-top: 1px solid rgba(201,168,76,0.08);
+    font-size: 0.73rem;
+    color: rgba(250,246,238,0.25);
+    letter-spacing: 0.1em;
+    line-height: 2.2;
+  }
+  footer a { color: var(--gold); text-decoration: none; opacity: 0.65; transition: opacity .2s; }
+  footer a:hover { opacity: 1; }
+
+  /* ── REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.75s ease, transform 0.75s ease;
+  }
+  .reveal.vis { opacity:1; transform:translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 760px) {
+    .hero {
+      grid-template-columns: 1fr;
+      text-align: center;
+      padding: 4rem 1.5rem 3rem;
+    }
+    .location-pill { margin: 0 auto 1.5rem; }
+    .hero-sub { margin-left: auto; margin-right: auto; }
+    .hero-pills { justify-content: center; }
+    .hero-img-col { order: -1; }
+    .hero-img-wrap { width: 300px; }
+    .promo-box { padding: 2.5rem 1.5rem; }
+    .promo-grid { grid-template-columns: 1fr; }
+    .cta-box { padding: 2.8rem 1.5rem; }
+    .pain-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- stars -->
+<div class="hero-bg"></div>
+<div class="stars" id="stars"></div>
+
+<!-- ════════ HERO ════════ -->
+<section style="position:relative">
+  <div class="hero">
+    <div class="hero-text">
+      <div class="location-pill">Vancouver, California · Home Service</div>
+      <h1 class="hero-title">
+        Tu cuerpo tiene<br>respuestas que<br><em>la medicina no ve</em>
+      </h1>
+      <p class="hero-sub">
+        El Escáner Cuántico analiza más de 500 parámetros de tu salud en minutos — sin agujas, sin dolor, sin sala de espera. Directo en tu hogar en Vancouver, CA.
+      </p>
+      <div class="hero-pills">
+        <span class="hpill">Sin dolor</span>
+        <span class="hpill">No invasivo</span>
+        <span class="hpill">45 minutos</span>
+        <span class="hpill">A domicilio</span>
+        <span class="hpill">Vancouver CA</span>
+      </div>
+      <a class="btn-gold" href="tel:+13605594341">Reservar mi sesión — $50 USD</a>
+    </div>
+    <div class="hero-img-col">
+      <div class="hero-img-wrap">
+        <div class="hero-img-glow"></div>
+        <div class="hero-img-border"></div>
+        <div class="scan-line"></div>
+        <img src="https://i.ibb.co/tP1PQJLS/Gemini-Generated-Image-mgb6mrmgb6mrmgb6.png"
+             alt="Escáner Cuántico · Visualización energética del cuerpo humano">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ DOLOR ════════ -->
+<section class="sec" style="background: linear-gradient(180deg,#060810 0%,#0c0818 50%,#060810 100%)">
+  <div class="sec-inner">
+    <div class="reveal">
+      <p class="eyebrow">¿Te identificas?</p>
+      <h2 class="sec-title">Lo que tu cuerpo <em>quiere decirte</em><br>y nadie ha sabido escuchar</h2>
+      <div class="cyan-divider"></div>
+      <p class="sec-sub">5 señales que el Escáner Cuántico puede detectar en mujeres de 30 a 50 años · Vancouver, CA</p>
+    </div>
+    <div class="pain-grid">
+
+      <div class="pain-card reveal">
+        <span class="pain-num">01</span>
+        <span class="pain-icon">😴</span>
+        <div class="pain-title">Fatiga que no cede con el descanso</div>
+        <div class="pain-desc">Duermes 8 horas y amaneces agotada. El cansancio es una nube constante que no te abandona sin importar cuánto descanses.</div>
+        <div class="pain-sol">Detectamos deficiencias energéticas, desequilibrios suprarrenales y bloqueos que drenan tu vitalidad desde la raíz.</div>
+      </div>
+
+      <div class="pain-card reveal" style="transition-delay:.1s">
+        <span class="pain-num">02</span>
+        <span class="pain-icon">⚡</span>
+        <div class="pain-title">Ansiedad sin causa aparente</div>
+        <div class="pain-desc">Esa sensación de angustia que aparece de la nada. El corazón se acelera, la mente no para y nadie entiende por qué.</div>
+        <div class="pain-sol">Identificamos desequilibrios en el sistema nervioso y patrones emocionales acumulados que generan tensión crónica.</div>
+      </div>
+
+      <div class="pain-card reveal" style="transition-delay:.2s">
+        <span class="pain-num">03</span>
+        <span class="pain-icon">⚖️</span>
+        <div class="pain-title">Peso que no se mueve a pesar de todo</div>
+        <div class="pain-desc">Haces dieta, te esfuerzas, cambias hábitos — y la báscula no se mueve. El cuerpo parece resistirse sin explicación.</div>
+        <div class="pain-sol">Revelamos el estado real de tu metabolismo, tiroides, sistema linfático y factores hormonales que frenan tu progreso.</div>
+      </div>
+
+      <div class="pain-card reveal" style="transition-delay:.1s">
+        <span class="pain-num">04</span>
+        <span class="pain-icon">🌪️</span>
+        <div class="pain-title">Cambios de humor inexplicables</div>
+        <div class="pain-desc">Un momento estás bien, al siguiente todo se derrumba. Irritabilidad, llanto sin motivo, sensación de que algo no encaja.</div>
+        <div class="pain-sol">Detectamos fluctuaciones hormonales, desequilibrios en neurotransmisores y la raíz emocional de tus cambios de ánimo.</div>
+      </div>
+
+      <div class="pain-card reveal" style="transition-delay:.2s">
+        <span class="pain-num">05</span>
+        <span class="pain-icon">🌿</span>
+        <div class="pain-title">Dolores sin diagnóstico claro</div>
+        <div class="pain-desc">Molestias que migran. Los estudios dicen "todo está bien" — pero tú sabes perfectamente que no es así.</div>
+        <div class="pain-sol">Mapeamos la salud de tus órganos y detectamos inflamación silenciosa y toxinas que los estudios convencionales no ven.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════ LUPITA ════════ -->
+<div class="lupita-strip reveal">
+  <img class="lupita-img"
+       src="https://i.ibb.co/0jB7qQBk/VH-ESCABER-LINDA.jpg"
+       alt="Lupita Castillo · Especialista en Escáner Cuántico">
+  <div class="lupita-name">Lupita Castillo</div>
+  <div class="lupita-role">Especialista Certificada · Escáner Cuántico · Vancouver, CA</div>
+</div>
+
+<!-- ════════ SÚPER PROMO ════════ -->
+<section class="sec promo-sec">
+  <div class="promo-box reveal">
+    <div class="limited-badge">
+      <span>✦ &nbsp; Oferta exclusiva · Vancouver, CA &nbsp; ✦</span>
+    </div>
+    <h2 class="promo-title">
+      Sesión Express Completa<br><strong>a domicilio en Vancouver</strong>
+    </h2>
+    <div class="gold-divider"></div>
+    <p style="text-align:center;font-size:.85rem;color:rgba(250,246,238,.5);font-weight:300;margin-bottom:0;">
+      Todo lo que necesitas para entender tu cuerpo — sin salir de casa
+    </p>
+
+    <div class="price-wrap">
+      <div class="price-old">Regular price: $120 USD</div>
+      <div class="price-big"><sup>$</sup>50</div>
+      <div class="price-label">USD · pago único · incluye visita a domicilio</div>
+    </div>
+
+    <div class="promo-grid">
+      <div class="pi"><span class="pi-dot">✦</span><span>Análisis cuántico de 500+ parámetros de salud</span></div>
+      <div class="pi"><span class="pi-dot">✦</span><span>Sesión de 45 min en tu hogar en Vancouver</span></div>
+      <div class="pi"><span class="pi-dot">✦</span><span>Reporte personalizado impreso al momento</span></div>
+      <div class="pi"><span class="pi-dot">✦</span><span>Consulta de interpretación incluida</span></div>
+      <div class="pi"><span class="pi-dot">✦</span><span>Plan de bienestar personalizado</span></div>
+      <div class="pi"><span class="pi-dot">✦</span><span>Seguimiento por WhatsApp — 7 días</span></div>
+    </div>
+
+    <div class="urgency-line">⚡ Solo <b>10 lugares disponibles</b> esta semana en Vancouver · Agenda hoy</div>
+
+    <div style="text-align:center">
+      <a class="btn-gold" href="tel:+13605594341" style="font-size:.85rem;padding:1.2rem 3rem">
+        Quiero mi sesión a domicilio — $50 USD →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ CTA FINAL ════════ -->
+<section class="sec cta-sec">
+  <div class="cta-box reveal">
+    <h2 class="cta-title">Contrata con <em>Lupita Castillo</em></h2>
+    <div class="cta-location">📍 Servicio Express · Vancouver, California</div>
+    <p class="cta-desc">
+      Llamada directa · Sin formularios · Sin esperas.<br>
+      Agenda tu sesión hoy y recibe tu análisis cuántico completo en la comodidad de tu hogar.
+    </p>
+
+    <a class="phone-btn" href="tel:+13605594341">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+      </svg>
+      136 055 9 4341
+    </a>
+
+    <div class="cta-meta">
+      <strong>Lupita Castillo</strong> · Especialista en Escáner Cuántico<br>
+      Servicio a Domicilio · Vancouver, California<br>
+      Lunes – Sábado · 9:00 am – 7:00 pm
+    </div>
+  </div>
+</section>
+
+<!-- ════════ FOOTER ════════ -->
+<footer>
+  <div style="font-size:1rem;color:rgba(201,168,76,0.3);letter-spacing:.4em;margin-bottom:.5rem">✦ · ✦</div>
+  Diseñado con IA por <a href="mailto:movytec@gmail.com">movytec@gmail.com</a><br>
+  <span style="font-size:.65rem;opacity:.4">© 2026 · Quantum Body Scan · Vancouver, California · Todos los derechos reservados</span>
+</footer>
+
+<script>
+  /* ── stars ── */
+  const sf = document.getElementById('stars');
+  for (let i = 0; i < 80; i++) {
+    const s = document.createElement('div');
+    const sz = Math.random() * 2 + 0.5;
+    s.className = 'star';
+    s.style.cssText = `
+      width:${sz}px; height:${sz}px;
+      top:${Math.random()*100}%;
+      left:${Math.random()*100}%;
+      --d:${(Math.random()*5+2).toFixed(1)}s;
+      --delay:-${(Math.random()*6).toFixed(1)}s;
+      --lo:${(Math.random()*0.12).toFixed(2)};
+      --hi:${(Math.random()*0.5+0.15).toFixed(2)};
+    `;
+    sf.appendChild(s);
+  }
+
+  /* ── reveal ── */
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
